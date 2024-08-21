@@ -12,7 +12,13 @@
     "jsx": "react-jsx",
     "resolveJsonModule": true,
     "strict": true,
-    "forceConsistentCasingInFileNames": true
+    "forceConsistentCasingInFileNames": true,
+    "plugins": [
+      {
+        "name": "@0no-co/graphqlsp",
+        "schema": "./src/application/localSchema.graphql"
+      }
+    ]
   },
   "$schema": "https://json.schemastore.org/tsconfig",
   "compileOnSave": true,
