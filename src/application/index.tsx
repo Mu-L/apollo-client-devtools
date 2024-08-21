@@ -11,7 +11,6 @@ import * as Tooltip from "@radix-ui/react-tooltip";
 
 import { getRpcClient } from "../extension/devtools/panelRpcClient";
 import { createSchemaWithRpcClient } from "./schema";
-import { MemoryInternals } from "./components/MemoryInternals";
 
 const rpcClient = getRpcClient();
 const schema = createSchemaWithRpcClient(rpcClient);
