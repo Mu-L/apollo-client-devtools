@@ -19,7 +19,9 @@ type Reason =
 
 export function registerClient(
   client: ApolloClient<any>,
-  url: string | URL
+  url:
+    | ConstructorParameters<typeof WebSocket>[0]
+    | ConstructorParameters<typeof WebSocket>
 ): {
   connected: Promise<void>;
   unregister: (reason?: Reason) => void;
@@ -43,7 +45,9 @@ function makeErrorHandler(cleanup: (reason?: Reason) => void): EventListener {
 
 export function _registerClient(
   clientRef: WeakRef<ApolloClient<any>>,
-  url: string | URL
+  url:
+    | ConstructorParameters<typeof WebSocket>[0]
+    | ConstructorParameters<typeof WebSocket>
 ): {
   connected: Promise<void>;
   unregister: (reason?: Reason) => void;
@@ -60,7 +64,10 @@ export function _registerClient(
     }
   }
 
-  const ws = new WebSocket(url);
+  const wsArgs: ConstructorParameters<typeof WebSocket> = Array.isArray(url)
+    ? url
+    : [url];
+  const ws = new WebSocket(...wsArgs);
   registerCleanup(ws.close.bind(ws, 1000));
   ws.addEventListener("close", cleanup.bind(undefined, "WS_DISCONNECTED"), {
     once: true,
